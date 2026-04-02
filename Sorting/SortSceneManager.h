@@ -94,6 +94,7 @@ void SortSceneManager::OnFrameUpdate(const float& dT)
 
 void SortSceneManager::OnIncreaseStepSpeedPressed()
 {
+	if (!isActive) { return; }
 	stepInterval = std::max(
 		MIN_STEP_INTERVAL, stepInterval - STEP_ADJUST_INCREMENT
 	);
@@ -101,6 +102,7 @@ void SortSceneManager::OnIncreaseStepSpeedPressed()
 
 void SortSceneManager::OnDecreaseStepSpeedPressed()
 {
+	if (!isActive) { return; }
 	stepInterval = std::min(
 		MAX_STEP_INTERVAL, stepInterval + STEP_ADJUST_INCREMENT
 	);
@@ -116,6 +118,13 @@ void SortSceneManager::SetIsActive(const bool& value)
 
 SortSceneDrawData SortSceneManager::GetDrawData()
 {
+	if (!isActive) {
+		return{
+			"",
+			stepInterval,
+			{}
+		};
+	}
 
 	// get all the relevant data from the current SortScene
 

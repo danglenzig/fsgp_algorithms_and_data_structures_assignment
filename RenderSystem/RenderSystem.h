@@ -16,6 +16,9 @@ private:
 	RenderSystem(const RenderSystem&) = delete;
 	RenderSystem& operator=(const RenderSystem&) = delete;
 
+	std::string sortModeControlsStr = "Up/Down Arrows : Step speed      N : Next sorting algorithm      P : Pathfinding      ESC : Quit";
+
+
 public:
 
 	// the ONLY way to get the instance
@@ -34,6 +37,11 @@ public:
 		);
 
 		// TODO: everything else
+
+		DrawText(
+			sortModeControlsStr.c_str(),
+			10, 690, 20, {128,0,0,255} // Dark red
+		);
 
 	}
 

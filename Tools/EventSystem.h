@@ -27,6 +27,9 @@ public:
 	SimpleEvent QuitPressed;
 	SimpleEvent IncreaseStepSpeedPressed;
 	SimpleEvent DecreaseStepSpeedPressed;
+	SimpleEvent PathfindingPressed;
+	SimpleEvent SortingPressed;
+	SimpleEvent NextPressed;
 	
 
 	// Timing Events
