@@ -49,7 +49,6 @@ int main()
         ClearBackground({ 85, 107,47,255 }); // Olive green
 
         // Tell the RenderSystem to draw everything
-
         switch (currentVizMode) {
         case VizMode::SORTING:
             // get draw data from sortSceneMgr and tel the RenderSystem to draw it

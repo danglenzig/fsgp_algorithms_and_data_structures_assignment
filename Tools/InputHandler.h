@@ -17,6 +17,9 @@ private:
 	InputHandler(const InputHandler&) = delete;
 	InputHandler& operator=(const InputHandler&) = delete;
 
+
+	bool quitJustPressed = false;
+
 public:
 
 	// the ONLY way to get the instance
@@ -30,7 +33,8 @@ public:
 		// if some button is pressed
 		//     EventSystem::Instance().NameOfSimpleEvent.Invoke()
 		if (IsKeyPressed(KEY_ESCAPE)) {
-			EventSystem::Instance().QuitPressed.Invoke();
+			quitJustPressed = true;
+			//EventSystem::Instance().QuitPressed.Invoke();
 			return;
 		}
 		if (IsKeyPressed(KEY_UP)) {
@@ -42,5 +46,6 @@ public:
 			return;
 		}
 	}
+	bool GetQuitJustPressed() { return quitJustPressed; }
 
 };
