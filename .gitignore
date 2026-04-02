@@ -24,6 +24,8 @@ x86/
 *.sln.docstates
 *.VC.db
 *.VC.opendb
+*.vcxproj
+*.vcxproj.filters
 
 # -----------------------------------------------------------------------------
 # Auto-generated files by build process, database, and cache
