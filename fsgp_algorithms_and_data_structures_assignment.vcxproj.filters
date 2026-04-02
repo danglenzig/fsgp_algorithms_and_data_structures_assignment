@@ -29,5 +29,11 @@
     <ClInclude Include="Tools\InputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sorting\SortSceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem\RenderSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

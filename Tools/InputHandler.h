@@ -1,5 +1,6 @@
 #pragma once
 #include "EventSystem.h"
+#include "raylib.h"
 
 
 class InputHandler
@@ -28,6 +29,18 @@ public:
 	{
 		// if some button is pressed
 		//     EventSystem::Instance().NameOfSimpleEvent.Invoke()
+		if (IsKeyPressed(KEY_ESCAPE)) {
+			EventSystem::Instance().QuitPressed.Invoke();
+			return;
+		}
+		if (IsKeyPressed(KEY_UP)) {
+			EventSystem::Instance().IncreaseStepSpeedPressed.Invoke();
+			return;
+		}
+		if (IsKeyPressed(KEY_DOWN)) {
+			EventSystem::Instance().DecreaseStepSpeedPressed.Invoke();
+			return;
+		}
 	}
 
 };

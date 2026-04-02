@@ -25,5 +25,11 @@ public:
 
 	// Input Events
 	SimpleEvent QuitPressed;
+	SimpleEvent IncreaseStepSpeedPressed;
+	SimpleEvent DecreaseStepSpeedPressed;
+	
+
+	// Timing Events
+	Event<float> FrameUpdate;
 
 };
