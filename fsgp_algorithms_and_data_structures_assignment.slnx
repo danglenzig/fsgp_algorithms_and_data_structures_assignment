@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="fsgp_algorithms_and_data_structures_assignment.vcxproj" />
+  <Project Path="fsgp_algorithms_and_data_structures_assignment.vcxproj" Id="6b775658-5a90-487a-8c83-9e812140e98b" />
 </Solution>
