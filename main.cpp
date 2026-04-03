@@ -30,7 +30,7 @@ int main()
     
 
     SortSceneManager sortSceneMgr = SortSceneManager(STEP_INTERVAL);
-
+    sortSceneMgr.InitializeSceneData();
     sortSceneMgr.SetIsActive(true); // for now just automatically turn it on
 
 
