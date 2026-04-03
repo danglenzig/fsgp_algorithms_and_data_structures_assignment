@@ -142,11 +142,16 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Data\DataFactory.h" />
+    <ClInclude Include="Data\structs.h" />
     <ClInclude Include="RenderSystem\RenderSystem.h" />
     <ClInclude Include="Sorting\SortSceneManager.h" />
     <ClInclude Include="Tools\Event.h" />
     <ClInclude Include="Tools\EventSystem.h" />
     <ClInclude Include="Tools\InputHandler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="RenderSystem\ui_font.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,26 +1,14 @@
 #pragma once
 
 #include "../Tools/EventSystem.h"
+#include "../Data/structs.h"
+#include "../Data/DataFactory.h"
 #include <iostream>
 #include <algorithm>
 #include <string>
 #include <vector>
+#include <iomanip>
 #include "raylib.h"
-
-struct SortBarData {
-	Color color;
-	int height;
-	int width;
-};
-
-struct SortSceneDrawData {
-	std::string algorithmString;
-	float stepInterval;
-	std::vector<SortBarData> barsList;
-};
-
-
-
 
 class SortSceneManager
 {
@@ -29,6 +17,7 @@ private:
 	const float MIN_STEP_INTERVAL = 0.02f;
 	const float MAX_STEP_INTERVAL = 1.0f;
 	const float STEP_ADJUST_INCREMENT = 0.02f;
+	const bool USE_PLACEHOLDER_DATA = true;
 
 	size_t updateHandle = -1;
 	size_t increaseSpeedHandle = -1;
@@ -36,10 +25,13 @@ private:
 	float stepInterval = 0.2f;
 	float tA = 0.0f;
 	bool isActive = false;
+	SortSceneDrawData currentDrawData;
 
 	void OnFrameUpdate(const float& dT);
 	void OnIncreaseStepSpeedPressed();
 	void OnDecreaseStepSpeedPressed();
+	void UpdateDrawData();
+	SortSceneDrawData GetPlaceholderData();
 
 public:
 	// constructor / destructor
@@ -48,6 +40,7 @@ public:
 		EventSystem::Instance().FrameUpdate.Unsubscribe(updateHandle);
 		EventSystem::Instance().IncreaseStepSpeedPressed.Unsubscribe(increaseSpeedHandle);
 		EventSystem::Instance().DecreaseStepSpeedPressed.Unsubscribe(decreaseSpeedHandle);
+		
 	}
 
 	// public functions
@@ -87,9 +80,30 @@ void SortSceneManager::OnFrameUpdate(const float& dT)
 	if (tA < stepInterval) { return; }
 	tA = 0.0f;
 
-	std::cout << "STEP INTERVAL: "<< stepInterval <<"s\n";
+	UpdateDrawData();
 
 	// TODO...step the current sort scene.
+}
+
+void SortSceneManager::UpdateDrawData()
+{
+
+	if (currentDrawData.algorithmString == "PLACEHOLDER DATA") { return; } // no need to update
+	
+	// TODO: get load data from currentSortScene into currentDrawData
+}
+
+SortSceneDrawData SortSceneManager::GetPlaceholderData()
+{
+	std::string placeholderStr = "PLACEHOLDER DATA";
+	//std::string placeholderStr = "Bubble Sort: ";
+	float placeholderInterval = stepInterval;
+	int placeholderStepCount = 20;
+	int placeholderComparisons = 20;
+	std::vector<SortBarData> placeholderBars = DataFactory::Instance().GetSortedBarsList(120);
+	return SortSceneDrawData(
+		placeholderStr, placeholderInterval, placeholderStepCount, placeholderComparisons, placeholderBars
+	);
 }
 
 void SortSceneManager::OnIncreaseStepSpeedPressed()
@@ -112,6 +126,7 @@ void SortSceneManager::OnDecreaseStepSpeedPressed()
 void SortSceneManager::SetIsActive(const bool& value)
 {
 	if (isActive == value) { return; }
+	currentDrawData = GetPlaceholderData(); // initialize with valid placeholder data
 	isActive = value;
 	if (isActive) { tA = 0.0f; }
 }
@@ -119,22 +134,9 @@ void SortSceneManager::SetIsActive(const bool& value)
 SortSceneDrawData SortSceneManager::GetDrawData()
 {
 	if (!isActive) {
-		return{
-			"",
-			stepInterval,
-			{}
-		};
+		return SortSceneDrawData(); // blank data
 	}
 
-	// get all the relevant data from the current SortScene
-
-	// We haven't created the SortScene class yet, so
-	//   for now just return placeholder data
-	return{
-		// Placeholder...
-		"PLACEHOLDER STRING",
-		stepInterval,
-		{}
-	};
+	return currentDrawData;
 }
 
