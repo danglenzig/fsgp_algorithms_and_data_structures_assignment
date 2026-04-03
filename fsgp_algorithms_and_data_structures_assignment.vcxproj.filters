@@ -35,5 +35,14 @@
     <ClInclude Include="RenderSystem\RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Data\structs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\DataFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="RenderSystem\ui_font.ttf" />
   </ItemGroup>
 </Project>

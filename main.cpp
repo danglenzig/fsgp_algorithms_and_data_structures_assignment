@@ -7,6 +7,7 @@
 #include "Tools/InputHandler.h"
 #include "Sorting/SortSceneManager.h"
 #include "RenderSystem/RenderSystem.h"
+#include "Data/structs.h"
 #include "raylib.h"
 
 int main()
