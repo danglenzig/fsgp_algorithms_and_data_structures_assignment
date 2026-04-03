@@ -21,7 +21,7 @@ private:
 
 	std::string sortModeControlsStr = "Up/Down Arrows : step time      R: reset      N : next sorting algorithm      P : pathfinding      ESC : quit";
 
-	const Color UI_RED = { 128,0,0,255 };
+	const Color UI_RED = { 224,0,0,255 };
 
 public:
 
@@ -36,7 +36,7 @@ public:
 	{
 		DrawText(
 			sortModeControlsStr.c_str(),
-			100, 670, 20, {128,0,0,255}
+			100, 670, 20, UI_RED
 		);
 
 		std::string titleString = drawData.algorithmString;
@@ -58,7 +58,7 @@ public:
 			10, 50, 20, BLACK
 		);
 
-		const int START_X = 30;
+		const int START_X = 40;
 		const int SPACING = 10;
 		//const int POS_Y = 100;
 		int count = drawData.barsList.size();
@@ -73,7 +73,7 @@ public:
 			int posY = 600 - height;
 
 			Color color = barData.color;
-			DrawRectangle(posX, posY, width, height, GRAY);
+			DrawRectangle(posX, posY, width, height, color);
 		}
 
 	}

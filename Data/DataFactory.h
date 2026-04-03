@@ -34,7 +34,7 @@ public:
 		const float HEIGHT_MULTIPLIER = 4.0f;
 
 		for (int i = 0; i < count; i++) {
-			Color color = GOLD;
+			Color color = GRAY;
 			int height = (int)((float)i * HEIGHT_MULTIPLIER) + MIN_HEIGHT;
 			SortBarData data = SortBarData(color, height, WIDTH);
 			barsList.push_back(data);

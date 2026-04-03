@@ -37,8 +37,8 @@ private:
 	void OnIncreaseStepSpeedPressed();
 	void OnDecreaseStepSpeedPressed();
 	void UpdateDrawData();
-	void ShuffleBars();
-	SortSceneDrawData InitSceneData();
+	//void ShuffleBars();
+	//SortSceneDrawData InitSceneData();
 
 public:
 	// constructor / destructor
@@ -97,27 +97,29 @@ void SortSceneManager::UpdateDrawData()
 {
 	if (currentSortScene) {
 		currentDrawData.algorithmString = currentSortScene->GetName();
-		currentSortScene->Advance(currentDrawData.barsList);
+		currentSortScene->Advance();
 		currentDrawData.stepCount = currentSortScene->GetStats().steps;
 		currentDrawData.comparisons = currentSortScene->GetStats().comparisons;
 		currentDrawData.swaps = currentSortScene->GetStats().swaps;
+		currentDrawData.barsList = currentSortScene->GetBarsList();
 	}
 	currentDrawData.stepInterval = stepInterval;
 }
 
-SortSceneDrawData SortSceneManager::InitSceneData()
-{
-	std::string placeholderStr = "PLACEHOLDER";
-	//std::string placeholderStr = "Bubble Sort: ";
-	float placeholderInterval = stepInterval;
-	int placeholderStepCount = -1;
-	int placeholderComparisons = -1;
-	int placeholderSwaps = -1;
-	std::vector<SortBarData> placeholderBars = DataFactory::Instance().GetBarsList(120);
-	return SortSceneDrawData(
-		placeholderStr, placeholderInterval, placeholderStepCount, placeholderComparisons, placeholderSwaps, placeholderBars
-	);
-}
+//SortSceneDrawData SortSceneManager::InitSceneData()
+//{
+//	std::string placeholderStr = "PLACEHOLDER";
+//	//std::string placeholderStr = "Bubble Sort: ";
+//	float placeholderInterval = stepInterval;
+//	int placeholderStepCount = -1;
+//	int placeholderComparisons = -1;
+//	int placeholderSwaps = -1;
+//	//std::vector<SortBarData> placeholderBars = DataFactory::Instance().GetBarsList(120);
+//	std::vector<SortBarData> placeholderBars = {};
+//	return SortSceneDrawData(
+//		placeholderStr, placeholderInterval, placeholderStepCount, placeholderComparisons, placeholderSwaps, placeholderBars
+//	);
+//}
 
 void SortSceneManager::OnIncreaseStepSpeedPressed()
 {
@@ -139,31 +141,24 @@ void SortSceneManager::OnDecreaseStepSpeedPressed()
 // ======= Public functions =======
 
 void SortSceneManager::InitializeSceneData() {
-	currentDrawData = currentDrawData = InitSceneData();
-	ShuffleBars();
 
-
-	// create a Bubble SortScene and store it polymorphically
-	//BubbleSortScene bubbleSortScene = BubbleSortScene();
-	// create a BubbleEarlyEscape SortScene
-	// create a Selection SortScene
-	// create an Insertion SortScene
-
-	// add them to the list
+	// create SortScenes and store it polymorphically
 	sortScenes.push_back(std::make_unique<BubbleSortScene>());
-	// ...
-	// ...
+	//sortScenes.push_back(std::make_unique<BubbleEarlyEscapeSortScene>());
+	//sortScenes.push_back(std::make_unique<SelectionSortScene>());
+	//sortScenes.push_back(std::make_unique<InsertionSortScene>());
+	//sortScenes.push_back(std::make_unique<HeapSortScene>());
 	if (!sortScenes.empty()) {
 		currentSortScene = sortScenes[0].get();
+		currentSortScene->Start();
 	}
-
 }
 
-void SortSceneManager::ShuffleBars()
-{
-	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::shuffle(currentDrawData.barsList.begin(), currentDrawData.barsList.end(), std::default_random_engine(seed));
-}
+//void SortSceneManager::ShuffleBars()
+//{
+//	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+//	std::shuffle(currentDrawData.barsList.begin(), currentDrawData.barsList.end(), std::default_random_engine(seed));
+//}
 
 void SortSceneManager::SetIsActive(const bool& value)
 {
