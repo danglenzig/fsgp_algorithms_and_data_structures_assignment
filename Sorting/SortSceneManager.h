@@ -5,6 +5,8 @@
 #include "../Data/DataFactory.h"
 #include "../Sorting/SortScene.h"
 #include "../Sorting/BubbleSortScene.h"
+#include "../Sorting/SelectionSortScene.h"
+#include "../Sorting/InsertionSortScene.h"
 #include <iostream>
 #include <algorithm>
 #include <string>
@@ -106,21 +108,6 @@ void SortSceneManager::UpdateDrawData()
 	currentDrawData.stepInterval = stepInterval;
 }
 
-//SortSceneDrawData SortSceneManager::InitSceneData()
-//{
-//	std::string placeholderStr = "PLACEHOLDER";
-//	//std::string placeholderStr = "Bubble Sort: ";
-//	float placeholderInterval = stepInterval;
-//	int placeholderStepCount = -1;
-//	int placeholderComparisons = -1;
-//	int placeholderSwaps = -1;
-//	//std::vector<SortBarData> placeholderBars = DataFactory::Instance().GetBarsList(120);
-//	std::vector<SortBarData> placeholderBars = {};
-//	return SortSceneDrawData(
-//		placeholderStr, placeholderInterval, placeholderStepCount, placeholderComparisons, placeholderSwaps, placeholderBars
-//	);
-//}
-
 void SortSceneManager::OnIncreaseStepSpeedPressed()
 {
 	if (!isActive) { return; }
@@ -145,20 +132,16 @@ void SortSceneManager::InitializeSceneData() {
 	// create SortScenes and store it polymorphically
 	sortScenes.push_back(std::make_unique<BubbleSortScene>());
 	//sortScenes.push_back(std::make_unique<BubbleEarlyEscapeSortScene>());
-	//sortScenes.push_back(std::make_unique<SelectionSortScene>());
-	//sortScenes.push_back(std::make_unique<InsertionSortScene>());
+	sortScenes.push_back(std::make_unique<SelectionSortScene>());
+	sortScenes.push_back(std::make_unique<InsertionSortScene>());
 	//sortScenes.push_back(std::make_unique<HeapSortScene>());
 	if (!sortScenes.empty()) {
-		currentSortScene = sortScenes[0].get();
+		currentSortScene = sortScenes[2].get();
 		currentSortScene->Start();
 	}
 }
 
-//void SortSceneManager::ShuffleBars()
-//{
-//	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-//	std::shuffle(currentDrawData.barsList.begin(), currentDrawData.barsList.end(), std::default_random_engine(seed));
-//}
+
 
 void SortSceneManager::SetIsActive(const bool& value)
 {
@@ -170,10 +153,7 @@ void SortSceneManager::SetIsActive(const bool& value)
 
 SortSceneDrawData SortSceneManager::GetDrawData()
 {
-	//if (!isActive) {
-	//	
-	//	return SortSceneDrawData(); // blank data
-	//}
+	
 	return currentDrawData;
 }
 

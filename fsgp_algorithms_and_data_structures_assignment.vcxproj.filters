@@ -47,6 +47,12 @@
     <ClInclude Include="Sorting\BubbleSortScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sorting\SelectionSortScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sorting\InsertionSortScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="RenderSystem\ui_font.ttf" />
