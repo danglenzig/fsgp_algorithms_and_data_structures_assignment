@@ -21,7 +21,7 @@ private:
 
 	std::string sortModeControlsStr = "Up/Down Arrows : step time      R: reset      N : next sorting algorithm      P : pathfinding      ESC : quit";
 
-	const Color UI_RED = { 128,0,0,255 };
+	const Color UI_RED = { 224,0,0,255 };
 
 public:
 
@@ -34,12 +34,9 @@ public:
 
 	void RenderSortScene(const SortSceneDrawData& drawData)
 	{
-		if (drawData.stepCount < 0) { return; }
-
-		
 		DrawText(
 			sortModeControlsStr.c_str(),
-			100, 670, 20, {128,0,0,255}
+			100, 670, 20, UI_RED
 		);
 
 		std::string titleString = drawData.algorithmString;
@@ -51,16 +48,17 @@ public:
 		float stepInverval = drawData.stepInterval;
 		int stepCt = drawData.stepCount;
 		int comparisons = drawData.comparisons;
+		int swaps = drawData.swaps;
 		std::string stateStr = std::format(
-			"step time: {:.2f}s, step count: {}, comparisons: {}",
-			stepInverval, stepCt, comparisons
+			"step time: {:.2f}s, step count: {}, comparisons: {}, swaps: {}",
+			stepInverval, stepCt, comparisons, swaps
 		);
 		DrawText(
 			stateStr.c_str(),
 			10, 50, 20, BLACK
 		);
 
-		const int START_X = 20;
+		const int START_X = 40;
 		const int SPACING = 10;
 		//const int POS_Y = 100;
 		int count = drawData.barsList.size();
@@ -75,7 +73,7 @@ public:
 			int posY = 600 - height;
 
 			Color color = barData.color;
-			DrawRectangle(posX, posY, width, height, GRAY);
+			DrawRectangle(posX, posY, width, height, color);
 		}
 
 	}

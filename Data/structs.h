@@ -20,6 +20,7 @@ struct SortSceneDrawData {
 	float stepInterval;
 	int stepCount;
 	int comparisons;
+	int swaps;
 	std::vector<SortBarData> barsList;
 	
 	SortSceneDrawData(
@@ -27,12 +28,14 @@ struct SortSceneDrawData {
 		float _stepInterval,
 		int _stepCount,
 		int _comparisons,
+		int _swaps,
 		std::vector<SortBarData> _bars
 	) {
 		algorithmString = _algStr;
 		stepInterval = _stepInterval;
 		stepCount = _stepCount;
 		comparisons = _comparisons;
+		swaps = _swaps;
 		barsList = _bars;
 	}
 

@@ -3,6 +3,7 @@
 #include <vector>
 #include "structs.h"
 #include "raylib.h"
+#include <algorithm>
 
 class DataFactory
 {
@@ -15,6 +16,8 @@ private:
 	DataFactory(const DataFactory&) = delete;
 	DataFactory& operator=(const DataFactory&) = delete;
 
+	const int MIN_HEIGHT = 5;
+
 public:
 
 	// the ONLY way to get the instance
@@ -24,19 +27,18 @@ public:
 	}
 
 
-	std::vector<SortBarData> GetSortedBarsList(const int& count = 100) {
+	std::vector<SortBarData> GetBarsList(const int& count = 100) {
 		std::vector<SortBarData> barsList = {};
 
 		const int WIDTH = 8;
 		const float HEIGHT_MULTIPLIER = 4.0f;
 
 		for (int i = 0; i < count; i++) {
-			Color color = GOLD;
-			int height = (int)((float)i * HEIGHT_MULTIPLIER);
+			Color color = GRAY;
+			int height = (int)((float)i * HEIGHT_MULTIPLIER) + MIN_HEIGHT;
 			SortBarData data = SortBarData(color, height, WIDTH);
 			barsList.push_back(data);
 		}
-
 		return barsList;
 	}
 

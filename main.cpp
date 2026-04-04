@@ -30,7 +30,7 @@ int main()
     
 
     SortSceneManager sortSceneMgr = SortSceneManager(STEP_INTERVAL);
-
+    sortSceneMgr.InitializeSceneData();
     sortSceneMgr.SetIsActive(true); // for now just automatically turn it on
 
 
@@ -47,7 +47,7 @@ int main()
 
         // Draw
         BeginDrawing();
-        ClearBackground({ 85, 107,47,255 }); // Olive green
+        ClearBackground({ 137, 207, 240, 255 }); // baby blue
 
         // Tell the RenderSystem to draw everything
         switch (currentVizMode) {
