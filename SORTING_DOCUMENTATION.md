@@ -81,7 +81,7 @@ flowchart TD
     A["main.cpp"] --> B["InitWindow + SetTargetFPS"]
     B --> C["Create SortSceneManager"]
     C --> D["SortSceneManager::InitializeSceneData"]
-    D --> E["currentSortScene->Start()"][" "]
+    D --> E["currentSortScene->Start()"]
     E --> F{"Main loop"}
     F --> G["EventSystem::FrameUpdate.Invoke(dT)"]
     G --> H["SortSceneManager::OnFrameUpdate(dT)"]
