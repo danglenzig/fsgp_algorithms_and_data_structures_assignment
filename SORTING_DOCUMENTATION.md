@@ -101,6 +101,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+    classDef largePadding padding-left:20px,padding-right:20px;
     A["KEY_N pressed"] --> B["EventSystem::NextPressed.Invoke()"]
     B --> C["SortSceneManager::OnNextPressed"]
     C --> D["currentSortSceneIdx = (currentSortSceneIdx + 1) % sortScenes.size()"]
@@ -118,6 +119,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+    classDef largePadding padding-left:20px,padding-right:20px;
     A["SortScene::Start"] --> B["ResetStats()"]
     B --> C["AdditionalResetOps()  (virtual)"]
     C --> D["barsList = DataFactory::GetBarsList(120)"]
@@ -144,6 +146,7 @@ Note: Heap sort can do up to **two height comparisons per tick** (left child and
 
 ```mermaid
 flowchart TD
+    classDef largePadding padding-left:20px,padding-right:20px;
     A["Advance()"] --> B{"sorted?"}
     B -->|Yes| Z["return"]
     B -->|No| C{"outerIndex >= listSize?"}
@@ -169,6 +172,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+    classDef largePadding padding-left:20px,padding-right:20px;
     A["Advance()"] --> B{"sorted?"}
     B -->|Yes| Z["return"]
     B -->|No| C{"outerIndex >= listSize?"}
@@ -196,6 +200,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
+    classDef largePadding padding-left:20px,padding-right:20px;
     A["Advance()"] --> B{"sorted?"}
     B -->|Yes| Z["return"]
     B -->|No| C{"outerIndex >= listSize?"}
@@ -227,6 +232,7 @@ Heap sort uses persistent state so `sift-down` can be incremental across ticks:
 
 ```mermaid
 flowchart TD
+    classDef largePadding padding-left:20px,padding-right:20px;
     A["Advance()"] --> B{"sorted?"}
     B -->|Yes| Z["return"]
     B -->|No| C["steps++"]
@@ -266,6 +272,7 @@ flowchart TD
 
 ```mermaid
 classDiagram
+    classDef largePadding padding-left:20px,padding-right:20px;
     class SortScene {
         # string sortSceneName
         # string additionalInformation
