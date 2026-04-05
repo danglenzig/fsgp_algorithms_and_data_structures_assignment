@@ -78,6 +78,7 @@ That means **`steps` equals “visualization ticks”**, not a fixed algorithm-t
 
 ```mermaid
 flowchart TD
+    classDef largePadding padding-left:20px,padding-right:20px;
     A["main.cpp"] --> B["InitWindow + SetTargetFPS"]
     B --> C["Create SortSceneManager"]
     C --> D["SortSceneManager::InitializeSceneData"]
