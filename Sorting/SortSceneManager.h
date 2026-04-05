@@ -26,10 +26,13 @@ private:
 	const bool USE_PLACEHOLDER_DATA = true;
 
 	SortScene* currentSortScene = nullptr;
+	int currentSortSceneIdx = 0;
 	std::vector<std::unique_ptr<SortScene>> sortScenes;
 	size_t updateHandle = -1;
 	size_t increaseSpeedHandle = -1;
 	size_t decreaseSpeedHandle = -1;
+	size_t nextHandle = -1;
+	size_t resetHandle = -1;
 	float stepInterval = 0.2f;
 	float tA = 0.0f;
 	bool isActive = false;
@@ -38,6 +41,8 @@ private:
 	void OnFrameUpdate(const float& dT);
 	void OnIncreaseStepSpeedPressed();
 	void OnDecreaseStepSpeedPressed();
+	void OnNextPressed();
+	void OnResetPressed();
 	void UpdateDrawData();
 	//void ShuffleBars();
 	//SortSceneDrawData InitSceneData();
@@ -49,6 +54,8 @@ public:
 		EventSystem::Instance().FrameUpdate.Unsubscribe(updateHandle);
 		EventSystem::Instance().IncreaseStepSpeedPressed.Unsubscribe(increaseSpeedHandle);
 		EventSystem::Instance().DecreaseStepSpeedPressed.Unsubscribe(decreaseSpeedHandle);
+		EventSystem::Instance().ResetPressed.Unsubscribe(resetHandle);
+		EventSystem::Instance().NextPressed.Unsubscribe(nextHandle);
 		
 	}
 
@@ -76,6 +83,17 @@ SortSceneManager::SortSceneManager(const float& _stepInterval)
 			OnDecreaseStepSpeedPressed();
 		}
 	);
+	resetHandle = EventSystem::Instance().ResetPressed.Subscribe(
+		[this]() {
+			OnResetPressed();
+		}
+	);
+	nextHandle = EventSystem::Instance().NextPressed.Subscribe(
+		[this]() {
+			OnNextPressed();
+		}
+	);
+
 
 	stepInterval = _stepInterval;
 }
@@ -125,6 +143,23 @@ void SortSceneManager::OnDecreaseStepSpeedPressed()
 	);
 }
 
+void SortSceneManager::OnNextPressed()
+{
+	currentSortSceneIdx = (currentSortSceneIdx + 1) % sortScenes.size();
+	if (sortScenes[currentSortSceneIdx]) {
+		currentSortScene = sortScenes[currentSortSceneIdx].get();
+	}
+	currentSortScene->Start();
+}
+
+void SortSceneManager::OnResetPressed()
+{
+	if (currentSortScene) {
+		currentSortScene->Start();
+	}
+
+}
+
 // ======= Public functions =======
 
 void SortSceneManager::InitializeSceneData() {
@@ -136,7 +171,7 @@ void SortSceneManager::InitializeSceneData() {
 	sortScenes.push_back(std::make_unique<InsertionSortScene>());
 	//sortScenes.push_back(std::make_unique<HeapSortScene>());
 	if (!sortScenes.empty()) {
-		currentSortScene = sortScenes[2].get();
+		currentSortScene = sortScenes[currentSortSceneIdx].get();
 		currentSortScene->Start();
 	}
 }

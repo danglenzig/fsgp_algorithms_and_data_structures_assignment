@@ -18,6 +18,11 @@ private:
 
 public:
 	void Advance() override;
+	void AdditionalResetOps() override {
+		outerIndex = 0;
+		scanIndex = 1;
+		minIndex = 0;
+	}
 	SelectionSortScene() {
 		sortSceneName = "Selection Sort: ";
 	}
