@@ -22,7 +22,7 @@ int main()
 
     const int WIDTH = 1280;
     const int HEIGHT = 720;
-    const float STEP_INTERVAL = 0.2f;
+    const float STEP_INTERVAL = 0.02f;
 
     EventSystem& eventSystem = EventSystem::Instance();
     InputHandler& inputHandler = InputHandler::Instance();

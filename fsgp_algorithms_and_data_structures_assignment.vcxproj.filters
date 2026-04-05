@@ -53,6 +53,9 @@
     <ClInclude Include="Sorting\InsertionSortScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sorting\HeapSortScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="RenderSystem\ui_font.ttf" />

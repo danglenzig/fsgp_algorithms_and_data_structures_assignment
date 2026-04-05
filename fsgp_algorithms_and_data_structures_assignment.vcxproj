@@ -146,6 +146,7 @@
     <ClInclude Include="Data\structs.h" />
     <ClInclude Include="RenderSystem\RenderSystem.h" />
     <ClInclude Include="Sorting\BubbleSortScene.h" />
+    <ClInclude Include="Sorting\HeapSortScene.h" />
     <ClInclude Include="Sorting\InsertionSortScene.h" />
     <ClInclude Include="Sorting\SelectionSortScene.h" />
     <ClInclude Include="Sorting\SortScene.h" />

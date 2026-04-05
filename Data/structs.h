@@ -22,6 +22,7 @@ struct SortSceneDrawData {
 	int comparisons;
 	int swaps;
 	std::vector<SortBarData> barsList;
+	std::string additionalInfoStr;
 	
 	SortSceneDrawData(
 		std::string _algStr,
@@ -29,7 +30,8 @@ struct SortSceneDrawData {
 		int _stepCount,
 		int _comparisons,
 		int _swaps,
-		std::vector<SortBarData> _bars
+		std::vector<SortBarData> _bars,
+		std::string _additionalInfoStr
 	) {
 		algorithmString = _algStr;
 		stepInterval = _stepInterval;
@@ -37,6 +39,7 @@ struct SortSceneDrawData {
 		comparisons = _comparisons;
 		swaps = _swaps;
 		barsList = _bars;
+		additionalInfoStr = _additionalInfoStr;
 	}
 
 	// default constructor with blank data

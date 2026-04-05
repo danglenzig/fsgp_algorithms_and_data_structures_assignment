@@ -7,6 +7,7 @@
 #include "../Sorting/BubbleSortScene.h"
 #include "../Sorting/SelectionSortScene.h"
 #include "../Sorting/InsertionSortScene.h"
+#include "../Sorting/HeapSortScene.h"
 #include <iostream>
 #include <algorithm>
 #include <string>
@@ -122,6 +123,7 @@ void SortSceneManager::UpdateDrawData()
 		currentDrawData.comparisons = currentSortScene->GetStats().comparisons;
 		currentDrawData.swaps = currentSortScene->GetStats().swaps;
 		currentDrawData.barsList = currentSortScene->GetBarsList();
+		currentDrawData.additionalInfoStr = currentSortScene->GetAdditionalInfo();
 	}
 	currentDrawData.stepInterval = stepInterval;
 }
@@ -169,7 +171,7 @@ void SortSceneManager::InitializeSceneData() {
 	//sortScenes.push_back(std::make_unique<BubbleEarlyEscapeSortScene>());
 	sortScenes.push_back(std::make_unique<SelectionSortScene>());
 	sortScenes.push_back(std::make_unique<InsertionSortScene>());
-	//sortScenes.push_back(std::make_unique<HeapSortScene>());
+	sortScenes.push_back(std::make_unique<HeapSortScene>());
 	if (!sortScenes.empty()) {
 		currentSortScene = sortScenes[currentSortSceneIdx].get();
 		currentSortScene->Start();
