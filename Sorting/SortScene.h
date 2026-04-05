@@ -20,6 +20,7 @@ class SortScene
 {
 protected:
 	std::string sortSceneName = "";
+	std::string additionalInformation = "";
 	int steps = 0;
 	int swaps = 0;
 	int comparisons = 0;
@@ -32,6 +33,7 @@ private:
 public:
 	virtual void Advance() {}
 	virtual void AdditionalResetOps() {}
+	virtual void AdditionalStartOps() {};
 	SortScene();
 	~SortScene();
 	void ResetStats();
@@ -49,6 +51,9 @@ public:
 	}
 	std::vector<SortBarData> GetBarsList() {
 		return barsList;
+	}
+	std::string GetAdditionalInfo() {
+		return additionalInformation;
 	}
 
 };
@@ -82,4 +87,5 @@ void SortScene::Start()
 	barsList = DataFactory::Instance().GetBarsList(120);
 	listSize = barsList.size();
 	Shuffle();
+	AdditionalStartOps();
 }

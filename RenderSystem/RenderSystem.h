@@ -50,13 +50,18 @@ public:
 		int comparisons = drawData.comparisons;
 		int swaps = drawData.swaps;
 		std::string stateStr = std::format(
-			"step time: {:.2f}s, step count: {}, comparisons: {}, swaps: {}",
-			stepInverval, stepCt, comparisons, swaps
+			"step time: {:.2f}s, list size: {}, comparisons: {}, swaps: {}",
+			stepInverval, drawData.barsList.size(), comparisons, swaps
 		);
 		DrawText(
 			stateStr.c_str(),
 			10, 50, 20, BLACK
 		);
+
+		DrawText(
+			drawData.additionalInfoStr.c_str(),
+			10, 80, 20, BLACK
+		); 
 
 		const int START_X = 40;
 		const int SPACING = 10;
