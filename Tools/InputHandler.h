@@ -45,6 +45,12 @@ public:
 			EventSystem::Instance().DecreaseStepSpeedPressed.Invoke();
 			return;
 		}
+		if (IsKeyPressed(KEY_R)) {
+			EventSystem::Instance().ResetPressed.Invoke();
+		}
+		if (IsKeyPressed(KEY_N)) {
+			EventSystem::Instance().NextPressed.Invoke();
+		}
 	}
 	bool GetQuitJustPressed() { return quitJustPressed; }
 

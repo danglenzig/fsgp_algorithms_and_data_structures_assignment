@@ -30,12 +30,14 @@ protected:
 private:
 	//
 public:
+	virtual void Advance() {}
+	virtual void AdditionalResetOps() {}
 	SortScene();
 	~SortScene();
-	virtual void Advance() {}
 	void ResetStats();
 	void Start();
 	void Shuffle();
+
 
 	std::string GetName() { return sortSceneName; }
 	SortSceneStats GetStats() {
@@ -75,8 +77,9 @@ void SortScene::ResetStats()
 
 void SortScene::Start()
 {
+	ResetStats();
+	AdditionalResetOps();
 	barsList = DataFactory::Instance().GetBarsList(120);
 	listSize = barsList.size();
-	ResetStats();
 	Shuffle();
 }

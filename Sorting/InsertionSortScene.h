@@ -17,6 +17,11 @@ private:
 
 public:
 	void Advance() override;
+	void AdditionalResetOps() override {
+		outerIndex = 0;
+		innerIndex = 0;
+		passActive = false;
+	}
 	InsertionSortScene() {
 		sortSceneName = "Insertion Sort: ";
 	}

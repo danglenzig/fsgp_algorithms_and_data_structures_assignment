@@ -30,6 +30,7 @@ public:
 	SimpleEvent PathfindingPressed;
 	SimpleEvent SortingPressed;
 	SimpleEvent NextPressed;
+	SimpleEvent ResetPressed;
 	
 
 	// Timing Events
