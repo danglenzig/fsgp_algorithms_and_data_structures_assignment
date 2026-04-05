@@ -272,7 +272,6 @@ flowchart TD
 
 ```mermaid
 classDiagram
-    classDef largePadding padding-left:20px,padding-right:20px;
     class SortScene {
         # string sortSceneName
         # string additionalInformation
