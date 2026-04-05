@@ -60,4 +60,7 @@
   <ItemGroup>
     <Font Include="RenderSystem\ui_font.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SORTING_DOCUMENTATION.md" />
+  </ItemGroup>
 </Project>

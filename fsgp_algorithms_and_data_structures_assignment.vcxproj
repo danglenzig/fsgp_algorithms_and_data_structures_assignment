@@ -158,6 +158,9 @@
   <ItemGroup>
     <Font Include="RenderSystem\ui_font.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SORTING_DOCUMENTATION.md" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
