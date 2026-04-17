@@ -36,6 +36,29 @@ int main()
     pfSceneMgr.SetIsActive(false);
 
 
+    size_t sHandle = eventSystem.SortingPressed.Subscribe(
+        [&sortSceneMgr, &pfSceneMgr]() {
+            if (MainMgr::Instance().currentVizMode == MainMgr::VizMode::SORTING) { return; }
+            pfSceneMgr.SetIsActive(false);
+            sortSceneMgr.InitializeSceneData();
+            sortSceneMgr.SetIsActive(true);
+        }
+    );
+    size_t pHandle = eventSystem.PathfindingPressed.Subscribe(
+        [&sortSceneMgr, &pfSceneMgr]() {
+            if (MainMgr::Instance().currentVizMode == MainMgr::VizMode::PATHFINDING) { return; }
+            
+            // temp
+            sortSceneMgr.Test();
+            pfSceneMgr.Test();
+
+            /*sortSceneMgr.SetIsActive(false);
+            pfSceneMgr.InitializeSceneData();
+            pfSceneMgr.SetIsActive(true);*/
+        }
+    );
+
+
     InitWindow(WIDTH, HEIGHT, "Algorithms and Data Structures");
     SetTargetFPS(60);
 
@@ -72,4 +95,3 @@ int main()
     return 0;
 
 }
-

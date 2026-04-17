@@ -64,6 +64,11 @@ public:
 	void SetIsActive(const bool& value);
 	SortSceneDrawData GetDrawData();
 	void InitializeSceneData();
+
+	void Test() {
+		std::cout << "FOO\n";
+	}
+
 };
 
 // constructor / destructor

@@ -1,6 +1,7 @@
 #pragma once
 #include "../Data/structs.h"
 #include "../Tools/EventSystem.h"
+#include <iostream>
 
 class PathfindingSceneMgr
 {
@@ -29,6 +30,10 @@ public:
 
 	void InitializeSceneData();
 	void SetIsActive(const bool& value);
+
+	void Test() {
+		std::cout << "BAR\n";
+	}
 
 };
 
