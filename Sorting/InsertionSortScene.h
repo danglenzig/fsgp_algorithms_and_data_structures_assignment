@@ -27,7 +27,7 @@ public:
 	}
 };
 
-void InsertionSortScene::Advance()
+inline void InsertionSortScene::Advance()
 {
 	if (sorted) { return; }
 

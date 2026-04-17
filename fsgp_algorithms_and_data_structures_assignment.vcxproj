@@ -144,6 +144,8 @@
   <ItemGroup>
     <ClInclude Include="Data\DataFactory.h" />
     <ClInclude Include="Data\structs.h" />
+    <ClInclude Include="Pathfinding\MazeTools.h" />
+    <ClInclude Include="Pathfinding\PathfindingSceneMgr.h" />
     <ClInclude Include="RenderSystem\RenderSystem.h" />
     <ClInclude Include="Sorting\BubbleSortScene.h" />
     <ClInclude Include="Sorting\HeapSortScene.h" />
@@ -154,6 +156,7 @@
     <ClInclude Include="Tools\Event.h" />
     <ClInclude Include="Tools\EventSystem.h" />
     <ClInclude Include="Tools\InputHandler.h" />
+    <ClInclude Include="Tools\MainMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="RenderSystem\ui_font.ttf" />

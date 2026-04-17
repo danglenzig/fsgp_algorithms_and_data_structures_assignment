@@ -59,20 +59,20 @@ public:
 };
 
 
-SortScene::SortScene() {
+inline SortScene::SortScene() {
 
 }
-SortScene::~SortScene() {
+inline SortScene::~SortScene() {
 
 }
 
-void SortScene::Shuffle()
+inline void SortScene::Shuffle()
 {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::shuffle(barsList.begin(), barsList.end(), std::default_random_engine(seed));
 }
 
-void SortScene::ResetStats()
+inline void SortScene::ResetStats()
 {
 	steps = -1;
 	swaps = 0;
@@ -80,7 +80,7 @@ void SortScene::ResetStats()
 	sorted = false;
 }
 
-void SortScene::Start()
+inline void SortScene::Start()
 {
 	ResetStats();
 	AdditionalResetOps();

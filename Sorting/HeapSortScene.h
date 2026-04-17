@@ -59,7 +59,7 @@ public:
 	}
 };
 
-void HeapSortScene::Advance()
+inline void HeapSortScene::Advance()
 {
 	if (sorted) { return; }
 	comparisons = buildComparisons + extractComparisons;
