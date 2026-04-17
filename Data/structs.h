@@ -61,11 +61,13 @@ struct NodePos {
 };
 
 using NodePosDict = std::unordered_map<MazeNodeId, NodePos>;
+using PathResult = std::vector<MazeNodeId>;
 
 struct PathfindingSceneDrawData {
 	MazeGraph graph;
 	size_t mazeSize;
 	NodePosDict nodePosDict;
+	PathResult solution;
 	int xOffset;
 	int yOffset;
 	int nodeSpacing;
@@ -73,5 +75,7 @@ struct PathfindingSceneDrawData {
 	int startTextPosY;
 	int goalTextPosX;
 	int goalTextPosY;
+	int ratPosX;
+	int ratPosY;
 	//std::vector<NodePos> nodePosList;
 };

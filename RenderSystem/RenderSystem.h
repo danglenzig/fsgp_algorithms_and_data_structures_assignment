@@ -21,11 +21,12 @@ private:
 	RenderSystem& operator=(const RenderSystem&) = delete;
 
 	std::string sortModeControlsStr = "Up/Down Arrows : step time      R: reset      N : next sorting algorithm      P : pathfinding      ESC : quit";
-	std::string pfModeControlsStr   = "                  R: reset      N : next sorting algorithm      S : sorting          ESC : quit";
+	std::string pfModeControlsStr   = "                                  R: reset         S : sorting          ESC : quit";
 
 	const Color UI_RED = { 224,0,0,255 };
 
-	void DrawMaze(const PathfindingSceneDrawData&);
+	void DrawMaze(const PathfindingSceneDrawData& data);
+	void DrawMazeSolution(const PathfindingSceneDrawData& data);
 
 public:
 
@@ -94,6 +95,7 @@ public:
 			100, 670, 20, GOLD
 		);
 		DrawMaze(data);
+		DrawMazeSolution(data);
 	}
 
 };
@@ -107,8 +109,6 @@ inline void RenderSystem::DrawMaze(const PathfindingSceneDrawData& data)
 	int startTextPosY = data.startTextPosY - 15;
 
 	std::vector<MazeNodeId> visited = {};
-
-	
 
 
 	for (size_t i = 0; i < nodeCount; ++i) {
@@ -127,7 +127,7 @@ inline void RenderSystem::DrawMaze(const PathfindingSceneDrawData& data)
 			float neighborX = posDict[neighbor].x;
 			float neighborY = posDict[neighbor].y;
 			Vector2 neighborPos = { neighborX, neighborY };
-			DrawLineEx(thisNodePos, neighborPos, 20, DARKGRAY);
+			DrawLineEx(thisNodePos, neighborPos, 24, DARKGRAY);
 		}
 	}
 
@@ -144,5 +144,33 @@ inline void RenderSystem::DrawMaze(const PathfindingSceneDrawData& data)
 		"START",
 		startTextposX, startTextPosY, 30, {128,128,0,255}
 	);*/
+
+}
+
+inline void RenderSystem::DrawMazeSolution(const PathfindingSceneDrawData& data)
+{
+	NodePosDict posDict = data.nodePosDict;
+	PathResult solution = data.solution;
+	int nodeCount = solution.size();
+
+	// draw the solution in RED (comment this out later)
+	/*for (int i = 0; i < nodeCount; ++i) {
+		if (i == nodeCount - 1) { continue; }
+		MazeNodeId thisNodeID = solution[i];
+		MazeNodeId nextNodeID = solution[i + 1];
+		int thisX = posDict[thisNodeID].x;
+		int thisY = posDict[thisNodeID].y;
+		int nextX = posDict[nextNodeID].x;
+		int nextY = posDict[nextNodeID].y;
+		Vector2 thisPos = { thisX, thisY };
+		Vector2 nextPos = { nextX, nextY };
+		DrawLineEx(thisPos, nextPos, 4, RED);
+	}*/
+
+	int ratX = data.ratPosX;
+	int ratY = data.ratPosY;
+
+	DrawCircle(ratX, ratY, 8, GOLD);
+
 
 }
