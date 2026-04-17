@@ -2,8 +2,14 @@
 #include "../Data/structs.h"
 #include "../Tools/EventSystem.h"
 #include "MazeTools.h"
+#include "raylib.h"
+#include "raymath.h"
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <limits>
+//#include <cstdio>
+
 
 class PathfindingSceneMgr
 {
@@ -13,9 +19,12 @@ private:
 	const int X_OFFSET = 300;
 	const int Y_OFFSET = 40;
 	const int NODE_SPACING = 30;
+	const float RAT_SPEED = 150.0f;
+	const float CLOSE_ENOUGH = 0.05f;
 
 
 	bool isActive = false;
+	bool ratAtGoal = false;
 	float tA = 0.0f;
 	float stepInterval = 0.2f;
 	size_t updateHandle = -1;
@@ -23,6 +32,9 @@ private:
 	size_t decreaseSpeedHandle = -1;
 	size_t resetHandle = -1;
 	size_t nextHandle = -1;
+	//MazeNodeId ratCurr = -1;
+	//MazeNodeId ratNext = -1;
+	size_t ratIdx = 0;
 
 	PathfindingSceneDrawData currentDrawData;
 
@@ -34,6 +46,8 @@ private:
 	void UpdateDrawData();
 
 	NodePosDict GetNodePosDict();
+
+	PathResult GetShortestPath();
 
 	
 
@@ -104,6 +118,17 @@ inline void PathfindingSceneMgr::InitializeSceneData()
 	currentDrawData.startTextPosY = Y_OFFSET;
 
 	currentDrawData.nodePosDict = GetNodePosDict();
+	currentDrawData.solution = GetShortestPath();
+
+	currentDrawData.ratPosX = currentDrawData.nodePosDict[0].x;
+	currentDrawData.ratPosY = currentDrawData.nodePosDict[0].y;
+
+	ratIdx = 0;
+	//ratCurr = currentDrawData.solution[0];
+	//ratNext = currentDrawData.solution[1];
+	ratAtGoal = false;
+
+
 }
 
 inline void PathfindingSceneMgr::SetIsActive(const bool& value)
@@ -115,15 +140,47 @@ inline void PathfindingSceneMgr::SetIsActive(const bool& value)
 
 inline void PathfindingSceneMgr::OnFrameUpdate(const float& dT)
 {
-	if (!isActive) { return; }
-	tA += dT;
-	if (tA < stepInterval) { return; }
-	tA = 0.0f;
-	UpdateDrawData();
+	if (ratAtGoal) { return; }
+
+	MazeNodeId ratCurr = currentDrawData.solution[ratIdx];
+	MazeNodeId ratNext = currentDrawData.solution[ratIdx + 1];
+
+	Vector2 ratPos  = { currentDrawData.ratPosX, currentDrawData.ratPosY };
+	Vector2 nextPos = { currentDrawData.nodePosDict[ratNext].x, currentDrawData.nodePosDict[ratNext].y };
+
+	
+	float distanceToNext = Vector2DistanceSqr(ratPos, nextPos);
+	if (distanceToNext <= CLOSE_ENOUGH) {
+		if (ratNext == (MAZE_SIZE * MAZE_SIZE) - 1) {
+			ratAtGoal = true;
+			return;
+		}
+
+		++ratIdx;
+
+	}
+	Vector2 dir = Vector2Normalize(Vector2Subtract(nextPos, ratPos));
+	Vector2 moveVector = dir * dT * RAT_SPEED;
+
+	Vector2 newPos = Vector2Add(ratPos, moveVector);
+
+	currentDrawData.ratPosX = (int)newPos.x;
+	currentDrawData.ratPosY = (int)newPos.y;
+
+
+
+
+
+	
 }
 inline void PathfindingSceneMgr::OnIncreaseSpeedPressed() {}
 inline void PathfindingSceneMgr::OnDecreaseSpeedPressed() {}
-inline void PathfindingSceneMgr::OnResetPressed() {}
+
+inline void PathfindingSceneMgr::OnResetPressed()
+{
+	InitializeSceneData();
+}
+
 inline void PathfindingSceneMgr::OnNextPressed() {}
 inline void PathfindingSceneMgr::UpdateDrawData() {}
 
@@ -155,4 +212,69 @@ inline NodePosDict PathfindingSceneMgr::GetNodePosDict()
 	}
 
 	return posDict;
+}
+
+inline PathResult PathfindingSceneMgr::GetShortestPath()
+{
+	// BFS path calculation (fewest edges)
+	MazeNodeId start = 0;
+	MazeNodeId goal = (MAZE_SIZE * MAZE_SIZE) - 1;
+
+	PathResult result = {};
+	MazeGraph maze = currentDrawData.graph;
+
+	if (maze.find(start) == maze.end() || maze.find(start) == maze.end()) {
+		std::cerr << "Start or Goal missing from maze\n";
+	}
+
+	std::queue<MazeNodeId> q;
+	std::unordered_map<MazeNodeId, bool> visited;
+	std::unordered_map<MazeNodeId, MazeNodeId> cameFrom;
+
+	visited[start] = true;
+	cameFrom[start] = start;
+	q.push(start);
+
+	bool found = false;
+
+	
+	while (!q.empty() && !found) {
+
+		MazeNodeId current = q.front();
+		q.pop();
+
+		auto itAdj = maze.find(current);
+		if (itAdj == maze.end()) {
+			continue;
+		}
+
+		for (const auto& next : itAdj->second) {
+			if (visited[next]) {
+				continue;
+			}
+			visited[next] = true;
+			cameFrom[next] = current;
+			if (next == goal) {
+				found = true;
+				break;
+			}
+			q.push(next);
+		}
+	}
+
+	if (!found) { return result; }
+
+	
+
+	// Reconstruct path: goal -> ... -> start
+	std::vector<MazeNodeId> reversed;
+	for (MazeNodeId cur = goal;; cur = cameFrom[cur]) {
+		reversed.push_back(cur);
+		if (cur == start) break;
+	}
+
+	std::reverse(reversed.begin(), reversed.end());
+	result = std::move(reversed);
+
+	return result;
 }
