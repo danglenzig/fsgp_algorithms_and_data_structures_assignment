@@ -144,7 +144,7 @@
   <ItemGroup>
     <ClInclude Include="Data\DataFactory.h" />
     <ClInclude Include="Data\structs.h" />
-    <ClInclude Include="Reference\GraphTools.h" />
+    <ClInclude Include="Pathfinding\PathfindingSceneMgr.h" />
     <ClInclude Include="RenderSystem\RenderSystem.h" />
     <ClInclude Include="Sorting\BubbleSortScene.h" />
     <ClInclude Include="Sorting\HeapSortScene.h" />

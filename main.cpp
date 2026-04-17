@@ -6,6 +6,7 @@
 #include "Tools/Event.h"
 #include "Tools/InputHandler.h"
 #include "Sorting/SortSceneManager.h"
+#include "Pathfinding/PathfindingSceneMgr.h"
 #include "RenderSystem/RenderSystem.h"
 #include "Data/structs.h"
 #include "raylib.h"
@@ -32,6 +33,10 @@ int main()
     SortSceneManager sortSceneMgr = SortSceneManager(STEP_INTERVAL);
     sortSceneMgr.InitializeSceneData();
     sortSceneMgr.SetIsActive(true); // for now just automatically turn it on
+
+    PathfindingSceneMgr pfSceneMgr = PathfindingSceneMgr(STEP_INTERVAL);
+    pfSceneMgr.InitializeSceneData();
+    pfSceneMgr.SetIsActive(false);
 
 
 

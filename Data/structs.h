@@ -51,3 +51,7 @@ struct SortSceneDrawData {
 		barsList = {};
 	}
 };
+
+struct PathfindingSceneDrawData {
+
+};

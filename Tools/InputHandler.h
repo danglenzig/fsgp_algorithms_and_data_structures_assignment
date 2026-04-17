@@ -51,6 +51,12 @@ public:
 		if (IsKeyPressed(KEY_N)) {
 			EventSystem::Instance().NextPressed.Invoke();
 		}
+		if (IsKeyPressed(KEY_S)) {
+			EventSystem::Instance().SortingPressed.Invoke();
+		}
+		if (IsKeyPressed(KEY_P)) {
+			EventSystem::Instance().PathfindingPressed.Invoke();
+		}
 	}
 	bool GetQuitJustPressed() { return quitJustPressed; }
 

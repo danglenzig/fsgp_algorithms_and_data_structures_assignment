@@ -24,7 +24,7 @@ public:
 };
 
 
-void BubbleSortScene::Advance()
+inline void BubbleSortScene::Advance()
 {
 	if (sorted) { return; }
 

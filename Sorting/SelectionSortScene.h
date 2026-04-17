@@ -28,7 +28,7 @@ public:
 	}
 };
 
-void SelectionSortScene::Advance()
+inline void SelectionSortScene::Advance()
 {
 	if (sorted) { return; }
 

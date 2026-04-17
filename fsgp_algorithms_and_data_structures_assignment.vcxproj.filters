@@ -56,7 +56,7 @@
     <ClInclude Include="Sorting\HeapSortScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Reference\GraphTools.h">
+    <ClInclude Include="Pathfinding\PathfindingSceneMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

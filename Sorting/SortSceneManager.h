@@ -67,7 +67,7 @@ public:
 };
 
 // constructor / destructor
-SortSceneManager::SortSceneManager(const float& _stepInterval)
+inline SortSceneManager::SortSceneManager(const float& _stepInterval)
 {
 	updateHandle = EventSystem::Instance().FrameUpdate.Subscribe(
 		[this](const float& dT) {
@@ -102,7 +102,7 @@ SortSceneManager::SortSceneManager(const float& _stepInterval)
 
 
 // ======= Private functions =======
-void SortSceneManager::OnFrameUpdate(const float& dT)
+inline void SortSceneManager::OnFrameUpdate(const float& dT)
 {
 	if (!isActive) { return; }
 	tA += dT;
@@ -114,7 +114,7 @@ void SortSceneManager::OnFrameUpdate(const float& dT)
 
 
 
-void SortSceneManager::UpdateDrawData()
+inline void SortSceneManager::UpdateDrawData()
 {
 	if (currentSortScene) {
 		currentDrawData.algorithmString = currentSortScene->GetName();
@@ -128,7 +128,7 @@ void SortSceneManager::UpdateDrawData()
 	currentDrawData.stepInterval = stepInterval;
 }
 
-void SortSceneManager::OnIncreaseStepSpeedPressed()
+inline void SortSceneManager::OnIncreaseStepSpeedPressed()
 {
 	if (!isActive) { return; }
 
@@ -137,7 +137,7 @@ void SortSceneManager::OnIncreaseStepSpeedPressed()
 	);
 }
 
-void SortSceneManager::OnDecreaseStepSpeedPressed()
+inline void SortSceneManager::OnDecreaseStepSpeedPressed()
 {
 	if (!isActive) { return; }
 	stepInterval = std::min(
@@ -145,7 +145,7 @@ void SortSceneManager::OnDecreaseStepSpeedPressed()
 	);
 }
 
-void SortSceneManager::OnNextPressed()
+inline void SortSceneManager::OnNextPressed()
 {
 	currentSortSceneIdx = (currentSortSceneIdx + 1) % sortScenes.size();
 	if (sortScenes[currentSortSceneIdx]) {
@@ -154,7 +154,7 @@ void SortSceneManager::OnNextPressed()
 	currentSortScene->Start();
 }
 
-void SortSceneManager::OnResetPressed()
+inline void SortSceneManager::OnResetPressed()
 {
 	if (currentSortScene) {
 		currentSortScene->Start();
@@ -164,7 +164,7 @@ void SortSceneManager::OnResetPressed()
 
 // ======= Public functions =======
 
-void SortSceneManager::InitializeSceneData() {
+inline void SortSceneManager::InitializeSceneData() {
 
 	// create SortScenes and store it polymorphically
 	sortScenes.push_back(std::make_unique<BubbleSortScene>());
@@ -180,7 +180,7 @@ void SortSceneManager::InitializeSceneData() {
 
 
 
-void SortSceneManager::SetIsActive(const bool& value)
+inline void SortSceneManager::SetIsActive(const bool& value)
 {
 	if (isActive == value) { return; }
 
@@ -188,9 +188,8 @@ void SortSceneManager::SetIsActive(const bool& value)
 	if (isActive) { tA = 0.0f; }
 }
 
-SortSceneDrawData SortSceneManager::GetDrawData()
+inline SortSceneDrawData SortSceneManager::GetDrawData()
 {
-	
 	return currentDrawData;
 }
 
