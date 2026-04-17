@@ -1,4 +1,7 @@
 #pragma once
+#include "../Pathfinding/MazeTools.h"
+#include <vector>
+#include <unordered_map>
 
 struct SortBarData {
 	Color color;
@@ -52,6 +55,23 @@ struct SortSceneDrawData {
 	}
 };
 
-struct PathfindingSceneDrawData {
+struct NodePos {
+	int x;
+	int y;
+};
 
+using NodePosDict = std::unordered_map<MazeNodeId, NodePos>;
+
+struct PathfindingSceneDrawData {
+	MazeGraph graph;
+	size_t mazeSize;
+	NodePosDict nodePosDict;
+	int xOffset;
+	int yOffset;
+	int nodeSpacing;
+	int startTextPosX;
+	int startTextPosY;
+	int goalTextPosX;
+	int goalTextPosY;
+	//std::vector<NodePos> nodePosList;
 };

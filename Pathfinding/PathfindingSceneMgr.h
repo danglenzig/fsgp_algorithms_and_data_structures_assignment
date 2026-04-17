@@ -1,11 +1,20 @@
 #pragma once
 #include "../Data/structs.h"
 #include "../Tools/EventSystem.h"
+#include "MazeTools.h"
 #include <iostream>
+#include <vector>
 
 class PathfindingSceneMgr
 {
 private:
+
+	const size_t MAZE_SIZE = 20;
+	const int X_OFFSET = 300;
+	const int Y_OFFSET = 40;
+	const int NODE_SPACING = 30;
+
+
 	bool isActive = false;
 	float tA = 0.0f;
 	float stepInterval = 0.2f;
@@ -23,6 +32,10 @@ private:
 	void OnResetPressed();
 	void OnNextPressed();
 	void UpdateDrawData();
+
+	NodePosDict GetNodePosDict();
+
+	
 
 public:
 	PathfindingSceneMgr(const float& stepInterval);
@@ -80,7 +93,17 @@ inline PathfindingSceneMgr::~PathfindingSceneMgr()
 
 inline void PathfindingSceneMgr::InitializeSceneData()
 {
+	SquareMaze maze = SquareMaze(MAZE_SIZE);
+	currentDrawData.graph =maze.AsGraph().graph;
+	currentDrawData.mazeSize = MAZE_SIZE;
+	currentDrawData.xOffset = X_OFFSET;
+	currentDrawData.yOffset = Y_OFFSET;
+	currentDrawData.nodeSpacing = NODE_SPACING;
 
+	currentDrawData.startTextPosX = X_OFFSET - NODE_SPACING;
+	currentDrawData.startTextPosY = Y_OFFSET;
+
+	currentDrawData.nodePosDict = GetNodePosDict();
 }
 
 inline void PathfindingSceneMgr::SetIsActive(const bool& value)
@@ -106,5 +129,30 @@ inline void PathfindingSceneMgr::UpdateDrawData() {}
 
 inline PathfindingSceneDrawData PathfindingSceneMgr::GetDrawData()
 {
-	return {}; // NOTE: struct still undefined
+	return currentDrawData; // NOTE: struct still undefined
+}
+
+inline NodePosDict PathfindingSceneMgr::GetNodePosDict()
+{
+
+	size_t mazeSize = currentDrawData.mazeSize;
+	int xOffset = currentDrawData.xOffset;
+	int yOffset = currentDrawData.yOffset;
+	int spacing = currentDrawData.nodeSpacing;
+
+	NodePosDict posDict = {};
+	
+	size_t count = -1;
+
+	for (int col = 0; col < mazeSize; ++col) {
+		for (int row = 0; row < mazeSize; ++row) {
+			++count;
+			int xPos = (row * spacing) + xOffset;
+			int yPos = (col * spacing) + yOffset;
+			posDict[count] = { xPos, yPos };
+
+		}
+	}
+
+	return posDict;
 }

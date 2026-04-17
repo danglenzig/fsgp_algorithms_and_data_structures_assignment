@@ -62,6 +62,9 @@
     <ClInclude Include="Tools\MainMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Pathfinding\MazeTools.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="RenderSystem\ui_font.ttf" />

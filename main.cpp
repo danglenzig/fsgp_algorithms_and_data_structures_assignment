@@ -63,15 +63,17 @@ int main()
 
         // Draw
         BeginDrawing();
-        ClearBackground({ 137, 207, 240, 255 }); // baby blue
+        
 
         // Tell the RenderSystem to draw everything
         switch (mainMgr.currentVizMode) {
         case MainMgr::VizMode::SORTING:
+            ClearBackground({ 137, 207, 240, 255 }); // baby blue
             // get draw data from sortSceneMgr and tel the RenderSystem to draw it
             renderSystem.RenderSortScene(sortSceneMgr.GetDrawData());
             break;
         case MainMgr::VizMode::PATHFINDING:
+            ClearBackground({ 100, 100, 240, 255 }); // baby blue
             // get draw data from pathSceneMgr and tell the RenderSystem to draw it
             renderSystem.RenderPathfindingScene(pfSceneMgr.GetDrawData());
             break;
