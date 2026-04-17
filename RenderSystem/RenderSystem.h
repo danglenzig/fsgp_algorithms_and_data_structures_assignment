@@ -20,6 +20,7 @@ private:
 	RenderSystem& operator=(const RenderSystem&) = delete;
 
 	std::string sortModeControlsStr = "Up/Down Arrows : step time      R: reset      N : next sorting algorithm      P : pathfinding      ESC : quit";
+	std::string pfModeControlsStr   = "Up/Down Arrows : step time      R: reset      N : next sorting algorithm      S : sorting          ESC : quit";
 
 	const Color UI_RED = { 224,0,0,255 };
 
@@ -80,8 +81,15 @@ public:
 			Color color = barData.color;
 			DrawRectangle(posX, posY, width, height, color);
 		}
-
 	}
 
+	void RenderPathfindingScene(const PathfindingSceneDrawData&)
+	{
+		//std::cout << "TODO: Pathfinding Scene Rendering\n";
+		DrawText(
+			pfModeControlsStr.c_str(),
+			100, 670, 20, UI_RED
+		);
+	}
 
 };

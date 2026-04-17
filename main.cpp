@@ -12,7 +12,8 @@
 #include "Tools/MainMgr.h"
 #include "raylib.h"
 
-
+void OnSortingPressed(SortSceneManager&, PathfindingSceneMgr&, MainMgr&);
+void OnPathfindingPressed(SortSceneManager&, PathfindingSceneMgr&, MainMgr&);
 
 int main()
 {
@@ -35,26 +36,17 @@ int main()
     pfSceneMgr.InitializeSceneData();
     pfSceneMgr.SetIsActive(false);
 
-
+    // hook up the mode-switching events
     size_t sHandle = eventSystem.SortingPressed.Subscribe(
-        [&sortSceneMgr, &pfSceneMgr]() {
+        [&sortSceneMgr, &pfSceneMgr, &mainMgr]() {
             if (MainMgr::Instance().currentVizMode == MainMgr::VizMode::SORTING) { return; }
-            pfSceneMgr.SetIsActive(false);
-            sortSceneMgr.InitializeSceneData();
-            sortSceneMgr.SetIsActive(true);
+            OnSortingPressed(sortSceneMgr, pfSceneMgr, mainMgr);
         }
     );
     size_t pHandle = eventSystem.PathfindingPressed.Subscribe(
-        [&sortSceneMgr, &pfSceneMgr]() {
+        [&sortSceneMgr, &pfSceneMgr, &mainMgr]() {
             if (MainMgr::Instance().currentVizMode == MainMgr::VizMode::PATHFINDING) { return; }
-            
-            // temp
-            sortSceneMgr.Test();
-            pfSceneMgr.Test();
-
-            /*sortSceneMgr.SetIsActive(false);
-            pfSceneMgr.InitializeSceneData();
-            pfSceneMgr.SetIsActive(true);*/
+            OnPathfindingPressed(sortSceneMgr, pfSceneMgr, mainMgr);
         }
     );
 
@@ -81,6 +73,7 @@ int main()
             break;
         case MainMgr::VizMode::PATHFINDING:
             // get draw data from pathSceneMgr and tell the RenderSystem to draw it
+            renderSystem.RenderPathfindingScene(pfSceneMgr.GetDrawData());
             break;
         default:
             break;
@@ -94,4 +87,20 @@ int main()
     CloseWindow();
     return 0;
 
+}
+
+void OnSortingPressed(SortSceneManager& s, PathfindingSceneMgr& p, MainMgr& m)
+{
+    p.SetIsActive(false);
+    s.InitializeSceneData();
+    s.SetIsActive(true);
+    m.SetVizMode(MainMgr::VizMode::SORTING);
+}
+
+void OnPathfindingPressed(SortSceneManager& s, PathfindingSceneMgr& p, MainMgr& m)
+{
+    s.SetIsActive(false);
+    p.InitializeSceneData();
+    p.SetIsActive(true);
+    m.SetVizMode(MainMgr::VizMode::PATHFINDING);
 }

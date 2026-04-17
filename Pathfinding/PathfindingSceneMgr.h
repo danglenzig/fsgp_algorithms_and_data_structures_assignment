@@ -35,6 +35,8 @@ public:
 		std::cout << "BAR\n";
 	}
 
+	PathfindingSceneDrawData GetDrawData();
+
 };
 
 inline PathfindingSceneMgr::PathfindingSceneMgr(const float& _stepInterval)
@@ -101,3 +103,8 @@ inline void PathfindingSceneMgr::OnDecreaseSpeedPressed() {}
 inline void PathfindingSceneMgr::OnResetPressed() {}
 inline void PathfindingSceneMgr::OnNextPressed() {}
 inline void PathfindingSceneMgr::UpdateDrawData() {}
+
+inline PathfindingSceneDrawData PathfindingSceneMgr::GetDrawData()
+{
+	return {}; // NOTE: struct still undefined
+}
