@@ -9,26 +9,23 @@
 #include "Pathfinding/PathfindingSceneMgr.h"
 #include "RenderSystem/RenderSystem.h"
 #include "Data/structs.h"
+#include "Tools/MainMgr.h"
 #include "raylib.h"
+
+
 
 int main()
 {
-    
-    enum VizMode {
-        SORTING,
-        PATHFINDING
-    };
+    MainMgr& mainMgr = MainMgr::Instance();
+    mainMgr.SetVizMode(MainMgr::VizMode::SORTING);
 
-    VizMode currentVizMode = VizMode::SORTING;
+    EventSystem& eventSystem = EventSystem::Instance();
+    InputHandler& inputHandler = InputHandler::Instance();
+    RenderSystem& renderSystem = RenderSystem::Instance();    
 
     const int WIDTH = 1280;
     const int HEIGHT = 720;
     const float STEP_INTERVAL = 0.02f;
-
-    EventSystem& eventSystem = EventSystem::Instance();
-    InputHandler& inputHandler = InputHandler::Instance();
-    RenderSystem& renderSystem = RenderSystem::Instance();
-    
 
     SortSceneManager sortSceneMgr = SortSceneManager(STEP_INTERVAL);
     sortSceneMgr.InitializeSceneData();
@@ -37,7 +34,6 @@ int main()
     PathfindingSceneMgr pfSceneMgr = PathfindingSceneMgr(STEP_INTERVAL);
     pfSceneMgr.InitializeSceneData();
     pfSceneMgr.SetIsActive(false);
-
 
 
     InitWindow(WIDTH, HEIGHT, "Algorithms and Data Structures");
@@ -55,12 +51,12 @@ int main()
         ClearBackground({ 137, 207, 240, 255 }); // baby blue
 
         // Tell the RenderSystem to draw everything
-        switch (currentVizMode) {
-        case VizMode::SORTING:
+        switch (mainMgr.currentVizMode) {
+        case MainMgr::VizMode::SORTING:
             // get draw data from sortSceneMgr and tel the RenderSystem to draw it
             renderSystem.RenderSortScene(sortSceneMgr.GetDrawData());
             break;
-        case VizMode::PATHFINDING:
+        case MainMgr::VizMode::PATHFINDING:
             // get draw data from pathSceneMgr and tell the RenderSystem to draw it
             break;
         default:

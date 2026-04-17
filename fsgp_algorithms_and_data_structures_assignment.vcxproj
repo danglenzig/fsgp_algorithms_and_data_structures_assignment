@@ -155,6 +155,7 @@
     <ClInclude Include="Tools\Event.h" />
     <ClInclude Include="Tools\EventSystem.h" />
     <ClInclude Include="Tools\InputHandler.h" />
+    <ClInclude Include="Tools\MainMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="RenderSystem\ui_font.ttf" />
