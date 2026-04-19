@@ -1,78 +1,37 @@
-# Sorting Visualizer (Raylib + C++) — Documentation
+# Sorting Visualization (G)
 
-This project visualizes sorting algorithms as animated bar charts using Raylib. Each algorithm runs incrementally: every call to `Advance()` performs a small piece of work so you can see comparisons, swaps, and sorted regions evolve over time.
+This document describes the **sorting algorithm visualizer** portion of this assignment (“Algorithms and Data Structures”).
 
-Implemented sorting scenes:
-- Bubble sort (`Sorting/BubbleSortScene.h`)
-- Selection sort (`Sorting/SelectionSortScene.h`)
-- Insertion sort (`Sorting/InsertionSortScene.h`)
-- Heap sort (`Sorting/HeapSortScene.h`) — incremental heapify + extract
+- **Goal:** visualize multiple sorting algorithms as animated bar charts.
+- **Implementation focus:** incremental (“step-by-step”) sorting, so each algorithm can be *watched* as it progresses.
 
----
+## Where to look (sorting-specific)
 
-## Grading rubric checklist
+- Sorting scene manager: `Sorting/SortSceneManager.h`
+- Base scene + shared behavior: `Sorting/SortScene.h`
+- Algorithm implementations:
+  - `Sorting/BubbleSortScene.h`
+  - `Sorting/SelectionSortScene.h`
+  - `Sorting/InsertionSortScene.h`
+  - `Sorting/HeapSortScene.h`
+- Bar list generation: `Data/DataFactory.h`
 
-- [x] Sorting visualizer similar to planning-session example
-- [x] At least 3 sorting algorithms from course material
-  - Implemented: Bubble, Selection, Insertion, Heap
-- [x] Swap between the scenes with a button press
-  - `N` cycles to the next sorting scene
-- [x] Bonus: comparisons and swaps shown when the algorithm runs / completes
-  - UI shows `comparisons` and `swaps`
-  - Heap sort also shows build vs extract comparisons via `additionalInformation`
-
----
-
-## Controls (sorting mode)
-
-From `Tools/InputHandler.h`:
-
-- `Up Arrow`: decrease step time (faster)
-- `Down Arrow`: increase step time (slower)
-- `R`: reset current algorithm (regenerate + shuffle + restart)
-- `N`: next sorting algorithm
-- `ESC`: quit (close Raylib window)
-
----
+Project-wide entry point, rendering, and controls are summarized in **[README.md](./README.md)**.
 
 ## Key design: incremental sorting with `Advance()`
 
-All algorithms are implemented for visualization, not for fastest execution.
+All sorting algorithms are implemented *for visualization*, not maximum throughput.
 
-- Each sort scene derives from `SortScene` and overrides `Advance()`.
-- The manager calls `Advance()` at a fixed interval (`stepInterval`).
-- Each `Advance()` performs a small, repeatable unit of work.
+- Each algorithm is a class deriving from `SortScene`.
+- The algorithm’s work is split into small units inside `Advance()`.
+- `SortSceneManager` calls `Advance()` at a fixed interval (`stepInterval`).
 
 ### About `steps`
 
-`steps` increments once per `Advance()` call.
+`steps` increments once per `Advance()` call, meaning:
 
-That means **`steps` equals “visualization ticks”**, not a fixed algorithm-theory step count. `comparisons` and `swaps` are the more comparable metrics across algorithms.
-
----
-
-## High-level architecture
-
-- `Sorting/SortScene.h`
-  - Base class for all algorithms
-  - Holds stats (`steps`, `comparisons`, `swaps`), `barsList`, and `sorted`
-  - Provides `Start()` + virtual hooks:
-    - `AdditionalResetOps()`
-    - `AdditionalStartOps()`
-
-- `Sorting/SortSceneManager.h`
-  - Owns scenes via `std::vector<std::unique_ptr<SortScene>>`
-  - Tracks current scene via `currentSortSceneIdx`
-  - Handles input events (Next, Reset, Speed)
-  - Produces `SortSceneDrawData` for the renderer
-
-- `RenderSystem/RenderSystem.h`
-  - Draws UI + bars using `SortSceneDrawData`
-
-- `Data/DataFactory.h`
-  - Generates the bars list
-
----
+- `steps` == “visualization ticks”, not “textbook steps”.
+- `comparisons` and `swaps` are more directly comparable between algorithms.
 
 ## Program flow (update + render)
 
