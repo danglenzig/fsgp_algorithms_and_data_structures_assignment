@@ -162,6 +162,7 @@
     <Font Include="RenderSystem\ui_font.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="PATHFINDING_DOCUMENTATION.md" />
     <None Include="SORTING_DOCUMENTATION.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
