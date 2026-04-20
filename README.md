@@ -42,8 +42,8 @@ flowchart TD
     B --> C[InputHandler]
     C --> ES[EventSystem]
 
-    ES -->|FrameUpdate(dT)| SM[SortSceneManager]
-    ES -->|FrameUpdate(dT)| PM[PathfindingSceneMgr]
+    ES -->|FrameUpdate| SM[SortSceneManager]
+    ES -->|FrameUpdate| PM[PathfindingSceneMgr]
 
     MM[MainMgr\ncurrentVizMode] --> R{Which mode?}
     R -->|Sorting| SDD[SortSceneDrawData]
