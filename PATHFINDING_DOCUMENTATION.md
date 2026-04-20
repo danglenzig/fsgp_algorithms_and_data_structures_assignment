@@ -20,11 +20,9 @@ The program has two modes (sorting + pathfinding). The active mode decides which
 
 ```mermaid
 flowchart LR
-    A[main.cpp] --> B[MainMgr
-(currentVizMode)]
+    A[main.cpp] --> B[MainMgr]
 
-    A --> ES[EventSystem
-(FrameUpdate / key events)]
+    A --> ES[EventSystem]
 
     B -->|SORTING| SSM[SortSceneManager]
     B -->|PATHFINDING| PSM[PathfindingSceneMgr]
@@ -115,22 +113,18 @@ This produces a connected maze with no isolated regions (there is always at leas
 
 ```mermaid
 flowchart TD
-    A[Start at cell 0] --> B[Mark visited
-push to stack]
+    A[Start at cell 0] --> B[Mark visited, push to stack]
     B --> C{Stack empty?}
-    C -->|no| D[Look at stack top
-(current cell)]
+    C -->|no| D[Look at stack top / current cell]
     D --> E[Collect unvisited
 neighbors]
     E --> F{Any candidates?}
     F -->|yes| G[Pick random neighbor]
-    G --> H[Carve passage
-(open bits both ways)]
-    H --> I[Mark neighbor visited
+    G --> H[Carve passage, both ways]
+    H --> I[Mark neighbor visited,
 push neighbor]
     I --> C
-    F -->|no| J[Pop stack
-(backtrack)]
+    F -->|no| J[Pop stack, backtrack]
     J --> C
     C -->|yes| K[Done]
 ```
@@ -158,13 +152,11 @@ The returned `solution` is a `vector<MazeNodeId>` where consecutive entries are 
 
 ```mermaid
 flowchart LR
-    S((start)) -->|BFS explores| Q[queue]
+    S[Start] -->|BFS explores| Q[queue]
     Q --> V[visited]
     Q --> CF[cameFrom]
-    CF --> R[reconstruct
-(goal→start)]
-    R --> P[solution path
-(start→goal)]
+    CF --> R[reconstruct, goal→start]
+    R --> P[solution path, start→goal]
 ```
 
 ## Visualization / rendering
