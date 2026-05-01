@@ -3,9 +3,9 @@
 This document describes the **sorting algorithm visualizer** portion of this assignment (“Algorithms and Data Structures”).
 
 - **Goal:** visualize multiple sorting algorithms as animated bar charts.
-- **Implementation focus:** incremental (“step-by-step”) sorting, so each algorithm can be *watched* as it progresses.
+- **Implementation focus:** incremental (“step-by-step”) sorting, so each algorithm can be watched as it progresses.
 
-## Where to look (sorting-specific)
+## Where to look
 
 - Sorting scene manager: `Sorting/SortSceneManager.h`
 - Base scene + shared behavior: `Sorting/SortScene.h`

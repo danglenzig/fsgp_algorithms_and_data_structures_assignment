@@ -1,4 +1,4 @@
-# Pathfinding Visualization (VG)
+# Pathfinding Visualization
 
 This document describes the **pathfinding visualization** portion of this assignment (“Algorithms and Data Structures”).
 
@@ -13,36 +13,6 @@ This document describes the **pathfinding visualization** portion of this assign
 - Shared draw-data structs: `Data/structs.h`
 
 Project-wide entry point, mode switching, and controls are summarized in **[README.md](./README.md)**.
-
-## High-level architecture
-
-The program has two modes (sorting + pathfinding). The active mode decides which “scene manager” produces draw data and which render path is used.
-
-```mermaid
-flowchart LR
-    A[main.cpp] --> B[MainMgr]
-
-    A --> ES[EventSystem]
-
-    B -->|SORTING| SSM[SortSceneManager]
-    B -->|PATHFINDING| PSM[PathfindingSceneMgr]
-
-    ES --> SSM
-    ES --> PSM
-
-    SSM --> RS[RenderSystem]
-    PSM --> RS
-```
-
-### Mode switching
-
-In `main.cpp`, both scene managers are constructed and initialized. When pressing the mode-switch keys, the code:
-
-- deactivates the previous scene
-- reinitializes the newly selected scene
-- switches `MainMgr::currentVizMode`
-
-(See `OnSortingPressed(...)` and `OnPathfindingPressed(...)` in `main.cpp`.)
 
 ## Pathfinding scene: responsibilities
 
@@ -62,8 +32,6 @@ It subscribes to the global `EventSystem` in its constructor:
 
 - `FrameUpdate` → `OnFrameUpdate(dT)`
 - `ResetPressed` → `OnResetPressed()`
-
-(There are also placeholders for increasing/decreasing speed and stepping, but they are currently empty.)
 
 ## Maze data model
 
@@ -216,11 +184,3 @@ From `RenderSystem` UI string (`pfModeControlsStr`):
 - `goalTextPosX/goalTextPosY` exist in `PathfindingSceneDrawData` but are not filled/used.
 - The “draw solution path in red” feature is present but commented out in `RenderSystem::DrawMazeSolution`.
 
-## What to evaluate in code
-
-If you are reviewing this for the algorithm/data-structures portion, the key parts are:
-
-- Maze generation with explicit neighbor selection + backtracking: `SquareMaze::SquareMaze` (`Pathfinding/MazeTools.h`)
-- Graph representation via adjacency list: `SquareMaze::AsGraph`
-- BFS shortest path + path reconstruction: `PathfindingSceneMgr::GetShortestPath` (`Pathfinding/PathfindingSceneMgr.h`)
-- Visualization pipeline: `PathfindingSceneMgr` → `PathfindingSceneDrawData` → `RenderSystem`

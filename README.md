@@ -4,13 +4,13 @@ This project is a school assignment for the course unit **“Algorithms and Data
 
 It contains two interactive visualizations:
 
-1. **Sorting algorithm visualization** (required for **G / passing**)
-2. **Pathfinding visualization** (for **VG / pass with distinction**)
+1. **Sorting algorithm visualization**
+2. **Pathfinding visualization**
 
 ## Documentation
 
-- Sorting (G): **[SORTING_DOCUMENTATION.md](./SORTING_DOCUMENTATION.md)**
-- Pathfinding (VG): **[PATHFINDING_DOCUMENTATION.md](./PATHFINDING_DOCUMENTATION.md)**
+- Sorting: **[SORTING_DOCUMENTATION.md](./SORTING_DOCUMENTATION.md)**
+- Pathfinding: **[PATHFINDING_DOCUMENTATION.md](./PATHFINDING_DOCUMENTATION.md)**
 
 ## How to navigate the code
 
@@ -35,6 +35,32 @@ Both visualizations share the same update/render loop:
   - `EventSystem::FrameUpdate` is invoked with `dT`.
   - The active scene manager (sorting or pathfinding) updates its internal state.
   - `RenderSystem` draws based on `MainMgr::currentVizMode`.
+
+```mermaid
+flowchart LR
+    A[main.cpp] --> B[MainMgr]
+
+    A --> ES[EventSystem]
+
+    B -->|SORTING| SSM[SortSceneManager]
+    B -->|PATHFINDING| PSM[PathfindingSceneMgr]
+
+    ES --> SSM
+    ES --> PSM
+
+    SSM --> RS[RenderSystem]
+    PSM --> RS
+```
+
+### Mode switching
+
+In `main.cpp`, both scene managers are constructed and initialized. When pressing the mode-switch keys, the code:
+
+- deactivates the previous scene
+- reinitializes the newly selected scene
+- switches `MainMgr::currentVizMode`
+
+(See `OnSortingPressed(...)` and `OnPathfindingPressed(...)` in `main.cpp`.)
 
 ```mermaid
 flowchart TD
